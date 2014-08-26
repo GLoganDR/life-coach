@@ -6,14 +6,12 @@ block content
       tr
         th Name
         th Due
-        th Description
         th Tags
     tbody
       each goal in goals
         tr
-          td= goal.name
-          td= goal.due
-          td= goal.description
+          td: a(href='/goals/#{goal._id}')= goal.name
+          td= moment(goal.due).format("MMM Do, YYYY")
           td= goal.tags
 
 block scripts

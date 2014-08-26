@@ -2,7 +2,7 @@ extends ../shared/template
 block content
   h2 New Goal
   .row
-    .col-xs-4
+    .col-xs-6
       form(role='form', method='post', action='/goals')
         .form-group
           label(for='name') Name
@@ -11,13 +11,10 @@ block content
           label(for='due') Due
           input.form-control#due(type='date', name='due')
         .form-group
-          label(for='description') Description
-          input.form-control#description(type='textarea', name='description')
-        .form-group
           label(for='tags') Tags
-          input.form-control#tags(type='textarea', name='tags')
+          input.form-control#tags(type='text', name='tags')
 
         button.btn.btn-primary(type='submit') Add Goal
-    .col-xs-8
+    .col-xs-6
 
 block scripts
