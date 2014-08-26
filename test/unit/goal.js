@@ -40,20 +40,37 @@ describe('Goal', function(){
 
   describe('.findAllByUserId', function(){
     it('should find all goals by user id', function(done){
-      var userId = Mongo.ObjectID('000000000000000000000002');
-      Goal.findAllByUserId(userId, function(err, goals){
-        expect(goals).to.have.length(2);
+      var userId = Mongo.ObjectID('000000000000000000000002'),
+          goalId = 'a00000000000000000000001';
+      Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
+        expect(goal).to.be.ok;
         done();
       });
     });
   });
 
-  describe('.findAllByUserId', function(){
-    it('should find all goals by user id', function(done){
+  describe('#save', function(){
+    it('should save a goal', function(done){
       var userId = Mongo.ObjectID('000000000000000000000002'),
           goalId = 'a00000000000000000000001';
       Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
-        expect(goal).to.be.ok;
+        goal.name = 'stuff';
+        goal.save(function(err, count){
+          expect(count).to.equal(1);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('#addTask', function(){
+    it('should save a task to a goal', function(done){
+      var userId = Mongo.ObjectID('000000000000000000000002'),
+          goalId = 'a00000000000000000000001';
+      Goal.findByGoalIdAndUserId(goalId, userId, function(err, goal){
+        goal.addTask({name:'w', difficulty:'x', description:'y', rank:'z'});
+        expect(goal.tasks[0].name).to.equal('w');
+        expect(goal.tasks[0].isComplete).to.be.false;
         done();
       });
     });

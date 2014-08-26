@@ -102,7 +102,7 @@ describe('goals', function(){
   });
 
   describe('get /goals/3', function(){
-    it('should show a specific goal page', function(done){
+    it('should redirect from goal show page - access error', function(done){
       // The following three lines are the same as line 16) //
       request(app)
       .get('/goals/b00000000000000000000001')
@@ -114,17 +114,17 @@ describe('goals', function(){
     });
   });
 
-  describe('get /goals/3', function(){
+  describe('post /goals/3/tasks', function(){
     it('should create a task for a specific goal', function(done){
-      // The following three lines are the same as line 16) //
       request(app)
-      .get('/goals/b00000000000000000000002/tasks')
+      .post('/goals/b00000000000000000000002/tasks')
       .set('cookie', cookie)
-      .send('name=Get+Shoes&description=Go+Buy+Shoes&difficulty=Hard&rank=3')
+      .send('name=Get+Shoes&description=Buy+some+shoes&difficulty=Hard&rank=3')
       .end(function(err, res){
         expect(res.status).to.equal(302);
         done();
       });
     });
   });
+  //Last Braces
 });
